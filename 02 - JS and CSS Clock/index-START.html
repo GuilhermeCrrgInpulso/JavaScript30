@@ -63,13 +63,37 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
     }
 
   </style>
 
   <script>
+    const hora = document.querySelector('.hour-hand');
+    const min = document.querySelector('.min-hand');
+    const sec = document.querySelector('.second-hand');
 
-
+    function atualizarRelogio() {
+      let dataAtual = new Date();
+  
+      let horas = dataAtual.getHours() % 12;
+      let minutos = dataAtual.getMinutes();
+      let segundos = dataAtual.getSeconds();
+  
+      let grausHoras = ((horas * 30) + (minutos * 0.5)) + 90; 
+      let grausMinutos = minutos * 6 + 90; 
+      let grausSegundos = segundos * 6 + 90; 
+  
+      hora.style.transform = `rotate(${grausHoras}deg)`;
+      min.style.transform = `rotate(${grausMinutos}deg)`;
+      sec.style.transform = `rotate(${grausSegundos}deg)`;
+  }
+  
+  atualizarRelogio();
+  setInterval(atualizarRelogio, 1000);
   </script>
 </body>
 </html>
