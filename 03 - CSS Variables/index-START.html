@@ -19,9 +19,25 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="https://portalefood.com.br/wp-content/uploads/2024/07/dan-russon-E2o0CzxHRWU-unsplash-1-1-1-800x500.jpg">
 
   <style>
+    
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    .hl{
+      color: var(--base);
+    }
+
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -46,6 +62,24 @@
   </style>
 
   <script>
+    const rootVariaveis = document.querySelector(':root');
+    const spacing = document.getElementById('spacing');
+    const blur = document.getElementById('blur');
+    const base = document.getElementById('base');
+
+    blur.addEventListener("input", function (){
+      rootVariaveis.style.setProperty('--blur',this.value + 'px');
+    });
+
+    spacing.addEventListener("input", function (){
+      rootVariaveis.style.setProperty('--spacing',this.value + 'px');
+    });
+
+    base.addEventListener("input", function ( ){
+      rootVariaveis.style.setProperty('--base',this.value);
+    });
+
+
   </script>
 
 </body>
