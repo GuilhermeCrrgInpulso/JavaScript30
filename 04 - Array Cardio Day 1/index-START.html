@@ -44,6 +44,8 @@
 
     const filtro = inventors.filter(filtrarIdade);
     console.table(filtro);
+
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
     function fisrtAndLastName (invertor) {
@@ -52,6 +54,8 @@
 
     const fisrtAndLast = inventors.map(fisrtAndLastName);
     console.table(fisrtAndLast);
+
+
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
     function sortbirhdate (invt1, invt2) {
@@ -60,26 +64,71 @@
 
     const sortedBirthdate = inventors.sort(sortbirhdate);
     console.table(sortedBirthdate); 
+
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
     function somador (acumulado, arrayValue) {
       return acumulado + arrayValue;
     }
     const acumulado = 0
-    const sum = inventors.reduce((acumulado, inventors.year), somador(acumulado,arrayValue.year), 0);
+    const sum = inventors.reduce((acumulado, inventors) => acumulado + (inventors.passed - inventors.year), 0);
     console.log(sum)
+
+
     // 5. Sort the inventors by years lived
+    function sortlived (invt1, invt2) {
+      return (invt1.passed - invt1.year) - (invt2.passed - invt2.year);
+    }
+
+    const sortedLived = inventors.sort(sortlived);
+    console.table(sortedLived); 
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    //const  category = document.querySelector('.mw-category');
+    //const links = [...category.querySelectorAll('a')];
+    //var de = links.map(link =>  link.textContent);
+    //de = de.filter(d => d.includes('de')); 
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    function sobreNome (texto1, texto2) {
+      let array1 = texto1.split(',');
+      let array2 = texto2.split(',');
 
+      return array1[1].localeCompare(array2[1]);
+    }
+
+    const sobrenomes = people.sort(sobreNome);
+    console.table(sobrenomes);
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    function somarData (acumulado, proximo) {
+      console.log(acumulado);
+
+      if (acumulado.indexOf(proximo) > -1) {
+        return acumulado;
+      }
+      acumulado.push(proximo)
+      return acumulado;
+    }
+
+    const dataResume = data.reduce(somarData, []);
+    console.log(dataResume);
+
+    const dataResume2 = data.reduce((obj, item) => {
+      if(!obj[item]){
+        obj[item] = 0;
+        return obj;
+      }
+      obj[item]++;
+      return obj;
+    },{});
+    console.log(dataResume2);
 
   </script>
 </body>

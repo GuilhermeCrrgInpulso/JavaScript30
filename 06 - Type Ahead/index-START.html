@@ -16,8 +16,53 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  const cities = [];
 
+  fetch(endpoint)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      cities.push(...data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+    console.log(cities);
+    function filterCity () {
+      let temCidade = cities.filter(selecionarCidade);
+      displayCities(temCidade);
+    }
+
+    function selecionarCidade (cidade) {
+      let valorInput = inputField.value;
+      const regex = new RegExp(valorInput,'gi')
+
+      if (cidade.city.match(regex) || cidade.state.match(regex)) {
+        return true
+      }
+    }
+
+    function displayCities (cidades) {
+      const html = cidades.map(city => {
+        return `
+        <li>
+          <span class="name">${city.city}, ${city.state}</span>
+          <span class="population">${city.population}</span>
+        </li> 
+        `;
+      }).join('');
+      outputField.innerHTML = html;
+    }
+
+    const outputField = document.querySelector('.suggestions');
+    const inputField = document.querySelector('input');
+    inputField.addEventListener('input', filterCity);
 </script>
 </body>
 </html>

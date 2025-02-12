@@ -97,6 +97,41 @@
   </div>
 
 <script>
+  const inputs = [...document.querySelectorAll('input')];
+  let lastInput = null;
+  let isShiftOn = false;
+
+  inputs.forEach((items) => items.addEventListener('input', isChecked));
+
+  function isChecked (event) {
+    if(isShiftOn && lastInput != null && this.checked && lastInput.checked){
+      let posOfLast = inputs.findIndex((input) =>{
+        return input == lastInput;
+      });
+      let posOfNow = inputs.findIndex((input) =>{
+        return input == this;
+      });
+      let start = posOfLast<posOfNow ? posOfLast : posOfNow;
+      let end = posOfLast>posOfNow ? posOfLast : posOfNow;
+
+      for(let i = start; i < end; i++){
+        inputs[i].checked = true;
+      }};
+    
+    lastInput = this;
+
+  }
+  
+  document.addEventListener('keydown', shiftDown);
+  document.addEventListener('keyup', shiftUp);
+
+  function shiftDown (event) {
+    if(event.shiftKey) isShiftOn = true;
+  }
+
+  function shiftUp (event) {
+    if(!event.shiftKey) isShiftOn = false;
+  }
 </script>
 </body>
 </html>
