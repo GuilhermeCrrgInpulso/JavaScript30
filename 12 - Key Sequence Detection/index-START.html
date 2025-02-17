@@ -7,6 +7,21 @@
     <link rel="icon" href="https://fav.farm/🔥" />
   </head>
   <body>
-    <script></script>
+    <script>
+      const pressed = [];
+      const secretWord = "a";
+
+      window.addEventListener("keyup", (e) => {
+
+        pressed.push(e.key);
+        pressed.splice( 0, pressed.length - secretWord.length);
+        if (pressed.join("").includes(secretWord)) {
+          console.log("La ele");
+          cornify_add();
+          console.log(pressed.join(''));
+        }
+      });
+
+    </script>
   </body>
 </html>
