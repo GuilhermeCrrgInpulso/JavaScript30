@@ -183,6 +183,17 @@
     </li>
   </ul>
 <script>
+  const videos = [...document.querySelectorAll('[data-time]')];
+
+  console.log(videos.reduce((tempoTotal, video) => somarTempo(tempoTotal, video),0));
+
+  function somarTempo (tempoTotal, video) {
+    
+    return 1 + tempoTotal;
+  }
+
+  console.log(videos[0].dataset.time)
+
 </script>
 </body>
 </html>
