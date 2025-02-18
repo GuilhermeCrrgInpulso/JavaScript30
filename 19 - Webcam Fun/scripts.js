@@ -3,3 +3,35 @@ const canvas = document.querySelector('.photo');
 const ctx = canvas.getContext('2d');
 const strip = document.querySelector('.strip');
 const snap = document.querySelector('.snap');
+
+function getVideo () {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false})
+        .then(localMediaStream => {
+            video.srcObject = localMediaStream;
+            video.play();
+        })
+        .catch(error =>{
+            console.error('Libere a webcam', error);    
+        });
+}
+
+function paintToCanvas () {
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+    
+    return setInterval(() => {
+        ctx.drawImage(video, 0, 0, width, height);
+    }, 1);
+}
+
+function takePhoto () {
+    snap.currentTime = 0;
+    snap.play();
+}
+
+getVideo();
+
+video.addEventListener('canplay', paintToCanvas);

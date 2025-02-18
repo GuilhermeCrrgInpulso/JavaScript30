@@ -185,14 +185,33 @@
 <script>
   const videos = [...document.querySelectorAll('[data-time]')];
 
-  console.log(videos.reduce((tempoTotal, video) => somarTempo(tempoTotal, video),0));
+  const segs = videos.reduce((tempoTotal, video) => somarTempo(tempoTotal, video),0);
 
-  function somarTempo (tempoTotal, video) {
-    
-    return 1 + tempoTotal;
+  montarTempo(segs);
+
+  function montarTempo (segundos) {
+    let secLeft = segundos%3600;
+
+    const horas = Math.floor(segundos/3600);
+
+    const minutos = Math.floor(secLeft/60);
+    secLeft = secLeft % 60;
+
+    console.log('hora ' + horas + ' minutos ' + minutos + ' segundos ' + secLeft);
   }
 
-  console.log(videos[0].dataset.time)
+
+  function somarTempo (tempoTotal, video) {
+    const segundos = changeToSec(video.dataset.time);
+    return segundos + tempoTotal;
+  }
+
+  function changeToSec (tempo){
+    let tempos = tempo.split(':');
+    let sec = (parseFloat(tempos[0]) * 60) + parseFloat(tempos[1]);
+
+    return sec;
+  }
 
 </script>
 </body>
